@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include<numeric>
 using namespace std;
 
 struct dataBase
@@ -27,6 +28,17 @@ struct dataBase
 
 	void updateCustomer(int customerID)
 	{
+		cout <<"Enter updated name: (Currently: "<< cList[customerID].cName<<"): ";
+		getline(cin >> ws, cList[customerID].cName);
+		cout << "Enter updated city: (Currently: " << cList[customerID].cCity << "): ";
+		cin >> cList[customerID].cCity;
+		cout << "Enter updated state: (Currently: " << cList[customerID].cState << "): ";
+		cin >> cList[customerID].cState;
+		cout << "Enter updated last visit: (Currently: " << cList[customerID].cLast_visit << "): ";
+		cin >> cList[customerID].cLast_visit;
+		cout << "Enter updated totalt sales: (Currently: " << cList[customerID].cTotal_sales << "): ";
+		cin >> cList[customerID].cTotal_sales;
+		cout << "Customer " << customerID << " updated." << endl;
 
 	}
 
@@ -66,11 +78,12 @@ void welcome()
 
 		for (int i = 0; i < tCustomers.cList.size(); i++)
 		{
-				cout << tCustomers.cList[i].cName << endl;
-				cout << tCustomers.cList[i].cCity << endl;
-				cout << tCustomers.cList[i].cState << endl;
-				cout << tCustomers.cList[i].cLast_visit << endl;
-				cout << tCustomers.cList[i].cTotal_sales << endl;
+			cout << "ID: " << tCustomers.cList[i].cID+1 << endl;
+		    cout << "Name: " << tCustomers.cList[i].cName << endl;
+			cout << "City: " << tCustomers.cList[i].cCity << endl;
+			cout << "State: "<< tCustomers.cList[i].cState << endl;
+			cout << "Last visit: " << tCustomers.cList[i].cLast_visit << endl;
+			cout << "Total sales: "<< tCustomers.cList[i].cTotal_sales<<"$" << endl;
 		}
 
 		cout << "What would you like to do?\n1 - Add Customer\n2 - Update Customer\n"
@@ -104,9 +117,18 @@ void welcome()
 		}
 		case 2:
 		{
-
+			int cUpdate;
+			cout << "Enter customer ID to update: ";
+			cin >> cUpdate;
+			if (cUpdate <= tCustomers.cList.size())
+			{
+				tCustomers.updateCustomer(cUpdate-1);
+			}
+			else
+			{
+				cout << "No customer ID " << cUpdate << " exists" << endl;
+			}
 			break;
-
 		}
 		case 3:
 		{
@@ -117,17 +139,41 @@ void welcome()
 		case 4:
 		{
 			int deleteID;
+			char sureDelete;
 			cout << "Enter customer ID to delete: ";
 			cin >> deleteID;
-			tCustomers.deleteCustomer(deleteID-1);
+			if (deleteID <= tCustomers.cList.size())
+			{
+				cout << "Customer " << deleteID << " found with following info: " << endl;
+				cout << "Name: " << tCustomers.cList[deleteID-1].cName << endl;
+				cout << "City: " << tCustomers.cList[deleteID-1].cCity << endl;
+				cout << "State: " << tCustomers.cList[deleteID-1].cState << endl;
+				cout << "Last visit: " << tCustomers.cList[deleteID-1].cLast_visit << endl;
+				cout << "Total sales: " << tCustomers.cList[deleteID-1].cTotal_sales << endl;
+				cout << "Are you sure you want to delete this customer? (y or n)";
+				cin >> sureDelete;
+				if (sureDelete == 'y')
+				{
+					cout << "Customer deleted." << endl;
+					tCustomers.deleteCustomer(deleteID - 1);
+				}
+				else if(sureDelete=='n')
+				{
+					cout << "Customer not deleted." << endl;
+				}
+			}
+			else
+			{
+				cout << "No customer ID " << deleteID << " exists" << endl;
+			}
+			
 			break;
-
 		}
 		case 5:
 		{
+			int companySales=0;
 
 			break;
-
 		}
 		case 6:
 		{
@@ -145,6 +191,5 @@ void welcome()
 int main()
 {
 	welcome();
-	cout << tCustomers.cID << endl;
 	return 0;
 }

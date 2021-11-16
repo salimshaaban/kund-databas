@@ -117,7 +117,7 @@ void welcome()
 		case 4:
 		{
 			int deleteID;
-			cout << "Enter ID to Delete: ";
+			cout << "Enter customer ID to delete: ";
 			cin >> deleteID;
 			tCustomers.deleteCustomer(deleteID-1);
 			break;

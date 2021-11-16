@@ -16,7 +16,6 @@ struct dataBase
 		tCustomers.cTotal_sales = total_sales;
 		tCustomers.cID = cList.size();
 		cList.push_back(tCustomers);
-		cout << cID << endl;
 	}
 
 	void interface();
